@@ -1,0 +1,201 @@
+id,texto,rotulo
+1,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+2,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+3,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+4,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+5,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+6,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+7,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+8,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+9,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+10,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+11,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+12,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+13,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+14,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+15,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+16,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+17,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+18,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+19,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+20,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+21,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+22,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+23,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+24,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+25,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+26,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+27,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+28,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+29,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+30,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+31,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+32,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+33,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+34,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+35,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+36,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+37,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+38,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+39,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+40,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+41,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+42,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+43,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+44,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+45,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+46,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+47,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+48,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+49,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+50,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+51,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+52,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+53,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+54,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+55,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+56,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+57,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+58,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+59,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+60,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+61,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+62,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+63,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+64,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+65,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+66,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+67,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+68,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+69,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+70,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+71,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+72,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+73,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+74,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+75,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+76,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+77,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+78,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+79,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+80,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+81,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+82,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+83,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+84,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+85,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+86,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+87,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+88,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+89,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+90,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+91,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+92,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+93,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+94,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+95,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+96,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+97,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+98,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+99,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+100,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+101,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+102,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+103,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+104,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+105,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+106,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+107,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+108,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+109,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+110,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+111,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+112,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+113,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+114,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+115,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+116,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+117,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+118,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+119,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+120,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+121,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+122,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+123,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+124,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+125,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+126,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+127,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+128,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+129,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+130,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+131,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+132,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+133,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+134,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+135,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+136,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+137,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+138,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+139,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+140,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+141,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+142,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+143,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+144,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+145,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+146,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+147,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+148,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+149,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+150,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+151,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+152,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+153,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+154,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+155,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida
+156,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+157,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+158,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+159,O delivery chegou rápido e a embalagem manteve tudo quentinho.,entrega
+160,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+161,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+162,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+163,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+164,"Prato chegou frio e a carne estava dura, comida bem decepcionante.",comida
+165,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+166,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+167,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+168,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+169,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+170,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+171,"Comida sem sal e muito oleosa, não consegui terminar o prato.",comida
+172,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+173,"Equipe simpática, o gerente veio à mesa perguntar se estava tudo bem.",atendimento
+174,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+175,"Entrega em vinte minutos, aplicativo fácil de usar e rastrear.",entrega
+176,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+177,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+178,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+179,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+180,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+181,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+182,"Entregador educado e pontual, chegou antes do horário previsto.",entrega
+183,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+184,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+185,Esperei vinte minutos e nenhum garçom veio anotar o pedido.,atendimento
+186,"Porção generosa e sabor incrível, melhor feijoada da cidade.",comida
+187,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+188,"Sobremesa maravilhosa, o petit gateau derrete na boca.",comida
+189,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+190,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+191,A embalagem veio amassada e o suco vazou na sacola inteira.,entrega
+192,"Recepção nota dez, fomos muito bem recebidos desde a porta.",atendimento
+193,Pedido demorou duas horas para chegar e ainda veio trocado.,entrega
+194,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+195,"Fui tratado com grosseria pela equipe, atendimento horrível.",atendimento
+196,O atendente errou nosso pedido duas vezes e nem pediu desculpas.,atendimento
+197,"A pizza veio queimada e sem recheio, massa crua no meio.",comida
+198,O garçom foi super atencioso e nos deu ótimas sugestões.,atendimento
+199,O rastreamento não funcionava e o pedido chegou frio na entrega.,entrega
+200,"O risoto estava perfeito, tempero na medida e ingredientes fresquinhos.",comida

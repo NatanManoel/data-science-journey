@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Estudos - MBA Data Science & IA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background: #0f172a;
+      --foreground: #f8fafc;
+      --card: #1e293b;
+      --card-border: #334155;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --accent: #818cf8;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+    }
+    .custom-checkbox:checked {
+      background-color: #10b981;
+      border-color: #10b981;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8">
+
+  <!-- HEADER -->
+  <header class="max-w-6xl mx-auto mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-700">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/30">MBA USP/ESALQ</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Regra dos 20 min/dia</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Trilha de Estudos & Evolução em Data Science</h1>
+        <p class="text-sm text-slate-400 mt-1">Acompanhe seu avanço diário, marque metas concluídas e acesse referências canônicas.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="exportData()" class="px-3.5 py-2 text-xs font-medium rounded-lg card text-slate-300 hover:text-white hover:bg-slate-700/60 transition-colors flex items-center gap-1.5">
+          <span>📥</span> Exportar Dados
+        </button>
+        <button onclick="resetDataPrompt()" class="px-3.5 py-2 text-xs font-medium rounded-lg text-rose-400 hover:bg-rose-500/10 transition-colors">
+          Resetar
+        </button>
+      </div>
+    </div>
+
+    <!-- METRICS CARDS -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+      <div class="card p-4">
+        <div class="text-xs font-medium text-slate-400">Total Estudado</div>
+        <div class="text-2xl font-bold text-sky-400 mt-1" id="stat-total-time">0 min</div>
+        <div class="text-xs text-slate-500 mt-1" id="stat-total-hours">0.0 horas acumuladas</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-xs font-medium text-slate-400">Sequência Ativa</div>
+        <div class="text-2xl font-bold text-emerald-400 mt-1" id="stat-streak">0 dias</div>
+        <div class="text-xs text-slate-500 mt-1">Constância diária</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-xs font-medium text-slate-400">Metas Concluídas</div>
+        <div class="text-2xl font-bold text-indigo-400 mt-1" id="stat-completed-tasks">0 / 14</div>
+        <div class="text-xs text-slate-500 mt-1" id="stat-percent-tasks">0% da Fase 1</div>
+      </div>
+      <div class="card p-4">
+        <div class="text-xs font-medium text-slate-400">Próxima Parada</div>
+        <div class="text-sm font-semibold text-amber-300 mt-2 truncate">19/01 - Metodologias Ágeis</div>
+        <div class="text-xs text-slate-500 mt-0.5">02/02 - Engenharia de Dados</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-8">
+
+    <!-- SEÇÃO: FOCO DO DIA & TIMER 20 MIN -->
+    <section class="card p-5 sm:p-6 bg-gradient-to-br from-slate-800 to-slate-900 border-sky-500/40 relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
+        <div class="space-y-2 max-w-xl">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Foco Recomendado Hoje (Qua 04/11)</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Data Wrangling II — Retomada do 35:40 / Linha 262</h2>
+          <p class="text-sm text-slate-300">
+            Foque 20 minutos rodando e testando o trecho de joins. Se sobrar energia, avance até o fechamento do bloco lógico.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span class="text-slate-400">Referência:</span>
+            <a href="https://wesmckinney.com/book/data-wrangling.html" target="_blank" class="text-sky-400 hover:text-sky-300 underline font-medium">
+              Wes McKinney Cap. 8 (Joins & Concat) ↗
+            </a>
+            <span class="text-slate-600">•</span>
+            <a href="https://pandas.pydata.org/docs/reference/api/pandas.merge.html" target="_blank" class="text-sky-400 hover:text-sky-300 underline">
+              Pandas Merge Docs ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- POMODORO 20 MIN -->
+        <div class="bg-slate-900/80 border border-slate-700/80 rounded-xl p-4 w-full sm:w-auto flex flex-col items-center gap-3">
+          <div class="text-xs font-medium uppercase tracking-wider text-slate-400">Cronômetro Piso (20 min)</div>
+          <div class="text-4xl font-mono font-bold text-sky-400 tracking-wider" id="timer-display">20:00</div>
+          <div class="flex gap-2">
+            <button id="btn-timer-toggle" onclick="toggleTimer()" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold rounded-lg transition-colors">
+              Iniciar
+            </button>
+            <button onclick="resetTimer()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg transition-colors">
+              Resetar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULÁRIO RÁPIDO DE REGISTRO FEYNMAN -->
+      <div class="mt-6 pt-5 border-t border-slate-700/60 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="md:col-span-2">
+          <label class="block text-xs font-medium text-slate-400 mb-1">Síntese Feynman (O que aprendeu hoje em palavras simples?)</label>
+          <input type="text" id="input-feynman" placeholder="Ex: Entendi que inner join descarta chaves que não existem nos dois DataFrames..." class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+        </div>
+        <div class="flex items-end gap-2">
+          <div class="w-24">
+            <label class="block text-xs font-medium text-slate-400 mb-1">Dificuldade</label>
+            <select id="select-diff" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+              <option value="1">1 - Fácil</option>
+              <option value="2">2 - Médio</option>
+              <option value="3" selected>3 - OK</option>
+              <option value="4">4 - Difícil</option>
+              <option value="5">5 - Desafio</option>
+            </select>
+          </div>
+          <button onclick="logQuickSession()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs py-2 px-3 rounded-lg transition-colors h-[34px]">
+            Registrar Sessão
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVEGAÇÃO ENTRE FASES -->
+    <div class="flex border-b border-slate-700 gap-6 text-sm">
+      <button onclick="switchTab('fase1')" id="tab-btn-fase1" class="pb-3 font-semibold text-sky-400 border-b-2 border-sky-400 transition-colors">
+        Fase 1: Até o Recesso (04/11 a 08/12)
+      </button>
+      <button onclick="switchTab('fase2')" id="tab-btn-fase2" class="pb-3 font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition-colors">
+        Fase 2: Recesso de 6 Semanas (09/12 a 18/01)
+      </button>
+      <button onclick="switchTab('fase3')" id="tab-btn-fase3" class="pb-3 font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition-colors">
+        Fase 3: Volta 2027 & Engenharia de Dados
+      </button>
+    </div>
+
+    <!-- ABA: FASE 1 -->
+    <div id="tab-fase1" class="space-y-4">
+      <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+        <span>Clique na caixinha para marcar ou desmarcar a meta. Suas ações ficam salvas no navegador!</span>
+        <span id="fase1-counter">0 de 14 concluídas</span>
+      </div>
+
+      <div class="space-y-3" id="timeline-list">
+        <!-- Itens inseridos dinamicamente pelo JavaScript -->
+      </div>
+    </div>
+
+    <!-- ABA: FASE 2 -->
+    <div id="tab-fase2" class="hidden space-y-4">
+      <div class="card p-4 bg-slate-800/40 border-slate-700 text-xs text-slate-300">
+        <strong class="text-white">Regra do Recesso:</strong> Uma única âncora de conteúdo por semana. 20 min/dia no tema da semana para não quebrar o ritmo sem sobrecarregar suas festas.
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="recesso-list">
+        <!-- Âncoras R1 a R6 inseridas pelo JS -->
+      </div>
+    </div>
+
+    <!-- ABA: FASE 3 -->
+    <div id="tab-fase3" class="hidden space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="card p-5 space-y-3 border-l-4 border-l-sky-500">
+          <div class="text-xs font-bold text-sky-400 uppercase">19/01 e 26/01</div>
+          <h3 class="text-base font-bold text-white">Metodologias Ágeis</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Tema prático e cotidiano. Nos 20 minutos de estudo diário, apenas mantenha a base viva fazendo pequenos ajustes no pipeline RAG/FastAPI.
+          </p>
+        </div>
+
+        <div class="card p-5 space-y-3 border-l-4 border-l-amber-500">
+          <div class="text-xs font-bold text-amber-400 uppercase">27/01 a 01/02</div>
+          <h3 class="text-base font-bold text-white">Semana Prep Engenharia</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Foco total em SQL analítico (Window Functions no LeetCode) e conceitos de pipelines escaláveis.
+          </p>
+          <div class="pt-2 text-xs">
+            <a href="https://github.com/DataTalksClub/data-engineering-zoomcamp" target="_blank" class="text-sky-400 underline">Data Engineering Zoomcamp ↗</a>
+          </div>
+        </div>
+
+        <div class="card p-5 space-y-3 border-l-4 border-l-emerald-500">
+          <div class="text-xs font-bold text-emerald-400 uppercase">02/02 em diante</div>
+          <h3 class="text-base font-bold text-white">Engenharia de Dados (Aulas 1, 2 e 3)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Aulas ao vivo em 02/02, 16/02 e 23/02. Durante as férias (03/02 a 15/02), mantenha 20 min/dia refazendo os laboratórios da aula 1.
+          </p>
+          <div class="pt-2 text-xs text-slate-400">
+            Livro de apoio: <em>Designing Data-Intensive Applications (Kleppmann)</em>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO: DIÁRIO DE SESSÕES & HISTÓRICO FEYNMAN -->
+    <section class="card p-5 sm:p-6 mt-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>📝</span> Diário de Aprendizado & Resumos Feynman
+        </h2>
+        <span class="text-xs text-slate-400" id="session-count-label">0 sessões salvas</span>
+      </div>
+      
+      <div id="session-history-container" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+        <div class="text-center py-8 text-xs text-slate-500">
+          Nenhuma sessão registrada ainda. Inicie amanhã e grave seu primeiro resumo!
+        </div>
+      </div>
+    </section>
+
+    <!-- GAVETA: ALAVANCAS DE DESBLOQUEIO RÁPIDO -->
+    <section class="card p-5 sm:p-6 bg-slate-800/30">
+      <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+        <span>⚡</span> Alavancas de Desbloqueio (Travou? Consulte em 5 a 10 min)
+      </h2>
+      <p class="text-xs text-slate-400 mb-4">Se passar mais de 10 minutos sem saber como avançar no código, abra a referência direta correspondente:</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+        <a href="https://wesmckinney.com/book/" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">Pandas / Wrangling</div>
+          <div class="text-slate-400 text-[11px] mt-1">Wes McKinney (Livre)</div>
+        </a>
+        <a href="https://www.youtube.com/@statquest" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">StatQuest</div>
+          <div class="text-slate-400 text-[11px] mt-1">Intuição de Estatística e ML</div>
+        </a>
+        <a href="https://www.statlearning.com/" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">ISLP (Stanford)</div>
+          <div class="text-slate-400 text-[11px] mt-1">Livro aberto com Python</div>
+        </a>
+        <a href="https://huggingface.co/learn/nlp-course" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">Hugging Face NLP</div>
+          <div class="text-slate-400 text-[11px] mt-1">Curso Gratuito de NLP</div>
+        </a>
+        <a href="https://fastapi.tiangolo.com/" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">FastAPI Docs</div>
+          <div class="text-slate-400 text-[11px] mt-1">APIs e Microsserviços</div>
+        </a>
+        <a href="https://github.com/DataTalksClub/data-engineering-zoomcamp" target="_blank" class="card p-3 hover:border-sky-500 transition-colors group">
+          <div class="font-semibold text-white group-hover:text-sky-400">DE Zoomcamp</div>
+          <div class="text-slate-400 text-[11px] mt-1">Docker, Spark, Airflow</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-500">
+    Trilha de Estudos Data Science • Dados persistidos localmente no navegador via LocalStorage • Regra dos 20 minutos
+  </footer>
+
+  <!-- JAVASCRIPT DINÂMICO & PERSISTÊNCIA -->
+  <script>
+    // DADOS DAS METAS DA FASE 1 (14 DIAS)
+    const CRONOGRAMA_FASE1 = [
+      {
+        id: "d01",
+        data: "Qua 04/11",
+        disciplina: "Data Wrangling II",
+        badge: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        meta: "Retomar DW II do 35:40 / L262 (~15-20 min) + registrar onde parou",
+        extra: "Avançar até o próximo bloco lógico de código",
+        refNome: "Wes McKinney - Cap. 8 (Joins & Concat)",
+        refUrl: "https://wesmckinney.com/book/data-wrangling.html"
+      },
+      {
+        id: "d02",
+        data: "Qui 05/11",
+        disciplina: "Data Wrangling II",
+        badge: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        meta: "Rodar o trecho de ontem; praticar joins e limpeza (fillna / dropna)",
+        extra: "Resolver exercício de limpeza da aula",
+        refNome: "Wes McKinney - Cap. 7 (Data Cleaning)",
+        refUrl: "https://wesmckinney.com/book/data-cleaning.html"
+      },
+      {
+        id: "d03",
+        data: "Sex 06/11",
+        disciplina: "Fundamentos de Estatística",
+        badge: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        meta: "Lista estatística no Excel: 3 a 5 exercícios resolvidos",
+        extra: "+5 exercícios OU 1 flashcard (Média vs Mediana)",
+        refNome: "Manual de Análise de Dados (p.78-150) | StatQuest P-Value",
+        refUrl: "https://statquest.org/"
+      },
+      {
+        id: "d04",
+        data: "Sáb 07/11",
+        disciplina: "SVM",
+        badge: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+        meta: "OPCIONAL: 20 min SVM Admissão (StandardScaler + fit)",
+        extra: "Completar pipeline Admissão e matrix de confusão",
+        refNome: "Géron Hands-On ML Cap. 5 | StatQuest SVM",
+        refUrl: "https://www.youtube.com/results?search_query=statquest+support+vector+machines"
+      },
+      {
+        id: "d05",
+        data: "Dom 08/11",
+        disciplina: "Revisão / Folga",
+        badge: "bg-slate-500/20 text-slate-300 border-slate-500/40",
+        meta: "15 min: Marcar checks da semana e descansar",
+        extra: "Folga merecida para consolidação de memória",
+        refNome: "Revisão rápida de metas",
+        refUrl: "#"
+      },
+      {
+        id: "d06",
+        data: "Seg 09/11",
+        disciplina: "Data Wrangling II",
+        badge: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        meta: "Fechar pendências de DW II (Meta: checklist 'Aula II OK')",
+        extra: "DW III abrir imports + load inicial",
+        refNome: "Pandas Docs (pd.merge & pd.concat)",
+        refUrl: "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+      },
+      {
+        id: "d07",
+        data: "Ter 10/11",
+        disciplina: "BI e Data Visualization I",
+        badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        meta: "Aula ao vivo BI I + recriar 1 gráfico no mesmo dia",
+        extra: "5 linhas conceituais (dimensão / fato / KPI)",
+        refNome: "Storytelling com Dados (Cap. 1-2) | FT Visual Vocabulary",
+        refUrl: "https://github.com/Financial-Times/chart-doctor/tree/master/visual-vocabulary"
+      },
+      {
+        id: "d08",
+        data: "Qua 11/11",
+        disciplina: "BI e Data Visualization I",
+        badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        meta: "Refazer 1 visual da aula BI I sem olhar gabarito",
+        extra: "DW III — 1 seção do script",
+        refNome: "FT Visual Vocabulary (guia de tipos de gráficos)",
+        refUrl: "https://github.com/Financial-Times/chart-doctor/tree/master/visual-vocabulary"
+      },
+      {
+        id: "d09",
+        data: "Qui 12/11",
+        disciplina: "Data Wrangling III",
+        badge: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        meta: "DW III (Dataset CVM): load de dados + limpeza inicial",
+        extra: "Merge e análise descritiva",
+        refNome: "Wes McKinney - Cap. 10 (Data Aggregation)",
+        refUrl: "https://wesmckinney.com/book/data-aggregation.html"
+      },
+      {
+        id: "d10",
+        data: "Sex 13/11",
+        disciplina: "SVM",
+        badge: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+        meta: "SVM Churn: StandardScaler + SVC fit (script cego curto)",
+        extra: "GridSearch ou ROC-AUC",
+        refNome: "Aurélien Géron Cap. 5 | ISLP Stanford Cap. 9",
+        refUrl: "https://www.statlearning.com/"
+      },
+      {
+        id: "d11",
+        data: "Sáb 14/11",
+        disciplina: "APIs & LLMs",
+        badge: "bg-indigo-500/20 text-indigo-300 border-indigo-500/40",
+        meta: "OPCIONAL semente APIs (20 min): script.py células [1] e [2] (FinOps + Gemini/Chroma)",
+        extra: "Células [3]-[4] extração do PDF",
+        refNome: "FastAPI Tutorial First Steps",
+        refUrl: "https://fastapi.tiangolo.com/tutorial/first-steps/"
+      },
+      {
+        id: "d12",
+        data: "Dom 15/11",
+        disciplina: "Revisão / Folga",
+        badge: "bg-slate-500/20 text-slate-300 border-slate-500/40",
+        meta: "15 min planejamento da semana 2",
+        extra: "Descanso mental",
+        refNome: "Revisão e checagem",
+        refUrl: "#"
+      },
+      {
+        id: "d13",
+        data: "Seg 16/11",
+        disciplina: "Data Wrangling III",
+        badge: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        meta: "Fechar DW III OU resumo Feynman de 10 linhas da aula BI I",
+        extra: "DW IV (Copa) apenas load e inspeção",
+        refNome: "Método Feynman de síntese ativa",
+        refUrl: "#"
+      },
+      {
+        id: "d14",
+        data: "Ter 17/11",
+        disciplina: "BI e Data Visualization II",
+        badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        meta: "Aula ao vivo BI II + 1 prática no software no mesmo dia",
+        extra: "Comparar evolução visual em relação a BI I",
+        refNome: "Storytelling com Dados (Cap. 3: Eliminar Clutter)",
+        refUrl: "https://www.storytellingwithdata.com/"
+      }
+    ];
+
+    // DADOS DO RECESSO (FASE 2)
+    const RECESSO_ITEMS = [
+      { id: "r1", title: "R1: 09 a 15/12 — Data Wrangling Completo", desc: "Entrega: WDI, CVM, Copa e Streaming rodando redondos.", ref: "Wes McKinney Cap. 7, 8 e 10" },
+      { id: "r2", title: "R2: 16 a 22/12 — Crawlers + Text Mining + APIs 1", desc: "Entrega: 1 crawler + sentiment 1 e 2. Sáb 19/12: aula solta 1 de APIs.", ref: "Hugging Face NLP + Scrapy Docs" },
+      { id: "r3", title: "R3: 23 a 29/12 — Semana Leve (Festas)", desc: "Entrega: Lista Excel estatística + 3 flashcards conceituais.", ref: "Fávero & Belfiore p.78-487" },
+      { id: "r4", title: "R4: 30/12 a 05/01 — PuLP + Árvores & Ensembles", desc: "Entrega: 2 modelos PuLP + 1 árvore e 1 ensemble (Random Forest/XGBoost).", ref: "PuLP Docs + Géron Cap. 6 e 7" },
+      { id: "r5", title: "R5: 06 a 12/01 — Deep Learning + SVM + Espacial", desc: "Entrega: 1 MLP básica + 2 SVMs + Moran I / LISA no Espacial.", ref: "3Blue1Brown + GeoPandas" },
+      { id: "r6", title: "R6: 13 a 18/01 — APIs & LLMs (RAG + FastAPI)", desc: "Entrega: Sáb 16/01 aula solta 2 (RAG) e endpoint /health no ar.", ref: "FastAPI + DeepLearning.AI" }
+    ];
+
+    // STORAGE STATE
+    let checkedTasks = JSON.parse(localStorage.getItem("study_checked_tasks") || "{}");
+    let sessionHistory = JSON.parse(localStorage.getItem("study_session_history") || "[]");
+
+    // TIMER STATE
+    let timerDuration = 20 * 60;
+    let timerTimeLeft = timerDuration;
+    let timerInterval = null;
+
+    // RENDER FASE 1
+    function renderTimeline() {
+      const container = document.getElementById("timeline-list");
+      container.innerHTML = "";
+      let completedCount = 0;
+
+      CRONOGRAMA_FASE1.forEach(item => {
+        const isChecked = !!checkedTasks[item.id];
+        if (isChecked) completedCount++;
+
+        const div = document.createElement("div");
+        div.className = `card p-4 transition-all ${isChecked ? 'bg-slate-900/60 border-emerald-500/30 opacity-75' : 'hover:border-slate-500'}`;
+        div.innerHTML = `
+          <div class="flex items-start gap-3">
+            <input type="checkbox" id="chk-${item.id}" ${isChecked ? 'checked' : ''} onchange="toggleTask('${item.id}')" class="custom-checkbox w-5 h-5 rounded border-slate-600 bg-slate-800 text-emerald-500 focus:ring-0 mt-0.5 cursor-pointer">
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-xs font-bold text-white">${item.data}</span>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium border ${item.badge}">${item.disciplina}</span>
+                ${isChecked ? '<span class="text-emerald-400 text-xs font-semibold">✓ Concluído</span>' : ''}
+              </div>
+              <p class="text-sm ${isChecked ? 'line-through text-slate-400' : 'text-slate-200 font-medium'}">${item.meta}</p>
+              <div class="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-3">
+                <span>⚡ <em>${item.extra}</em></span>
+                <span>•</span>
+                <a href="${item.refUrl}" target="_blank" class="text-sky-400 hover:text-sky-300 underline font-medium">
+                  📚 ${item.refNome} ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("stat-completed-tasks").textContent = `${completedCount} / ${CRONOGRAMA_FASE1.length}`;
+      document.getElementById("fase1-counter").textContent = `${completedCount} de ${CRONOGRAMA_FASE1.length} concluídas`;
+      const pct = Math.round((completedCount / CRONOGRAMA_FASE1.length) * 100);
+      document.getElementById("stat-percent-tasks").textContent = `${pct}% da Fase 1`;
+      updateSummaryMetrics();
+    }
+
+    // RENDER FASE 2
+    function renderRecesso() {
+      const container = document.getElementById("recesso-list");
+      container.innerHTML = "";
+      RECESSO_ITEMS.forEach(item => {
+        const isChecked = !!checkedTasks[item.id];
+        const div = document.createElement("div");
+        div.className = `card p-4 flex items-start gap-3 ${isChecked ? 'bg-slate-900/60 border-emerald-500/30 opacity-75' : ''}`;
+        div.innerHTML = `
+          <input type="checkbox" id="chk-${item.id}" ${isChecked ? 'checked' : ''} onchange="toggleTask('${item.id}')" class="custom-checkbox w-5 h-5 rounded border-slate-600 bg-slate-800 text-emerald-500 focus:ring-0 mt-0.5 cursor-pointer">
+          <div class="flex-1">
+            <h4 class="text-sm font-bold ${isChecked ? 'line-through text-slate-400' : 'text-white'}">${item.title}</h4>
+            <p class="text-xs text-slate-300 mt-1">${item.desc}</p>
+            <div class="text-[11px] text-sky-400 mt-2 font-medium">📚 ${item.ref}</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // TOGGLE CHECKBOX
+    function toggleTask(id) {
+      if (checkedTasks[id]) {
+        delete checkedTasks[id];
+      } else {
+        checkedTasks[id] = { completedAt: new Date().toISOString() };
+      }
+      localStorage.setItem("study_checked_tasks", JSON.stringify(checkedTasks));
+      renderTimeline();
+      renderRecesso();
+    }
+
+    // REGISTRAR SESSÃO RÁPIDA FEYNMAN
+    function logQuickSession() {
+      const feynman = document.getElementById("input-feynman").value.trim();
+      const diff = document.getElementById("select-diff").value;
+
+      const newSession = {
+        id: Date.now(),
+        data: new Date().toLocaleDateString('pt-BR'),
+        minutos: 20,
+        disciplina: "Data Wrangling",
+        feynman: feynman || "Sessão focada de 20 minutos concluída com sucesso.",
+        dificuldade: diff
+      };
+
+      sessionHistory.unshift(newSession);
+      localStorage.setItem("study_session_history", JSON.stringify(sessionHistory));
+      document.getElementById("input-feynman").value = "";
+      renderHistory();
+      updateSummaryMetrics();
+      alert("🎉 Parabéns! Sessão de 20 minutos gravada com sucesso!");
+    }
+
+    // RENDER HISTÓRICO
+    function renderHistory() {
+      const container = document.getElementById("session-history-container");
+      const label = document.getElementById("session-count-label");
+      label.textContent = `${sessionHistory.length} sessões salvas`;
+
+      if (sessionHistory.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-xs text-slate-500">Nenhuma sessão registrada ainda.</div>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      sessionHistory.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "p-3 bg-slate-900/60 border border-slate-700/60 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs";
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-sky-300">[${s.data}] ${s.disciplina}</span>
+              <span class="text-slate-500">•</span>
+              <span class="text-emerald-400 font-medium">${s.minutos} min</span>
+              <span class="text-slate-500">•</span>
+              <span class="text-amber-400">Dif: ${s.dificuldade}/5</span>
+            </div>
+            <div class="text-slate-300 mt-1 italic">"${s.feynman}"</div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // ATUALIZAR MÉTRICAS DO TOPO
+    function updateSummaryMetrics() {
+      let totalMin = sessionHistory.reduce((acc, curr) => acc + (curr.minutos || 0), 0);
+      document.getElementById("stat-total-time").textContent = `${totalMin} min`;
+      document.getElementById("stat-total-hours").textContent = `${(totalMin / 60).toFixed(1)} horas acumuladas`;
+
+      // Streak de dias distintos
+      const uniqueDays = new Set(sessionHistory.map(s => s.data));
+      document.getElementById("stat-streak").textContent = `${uniqueDays.size} dia(s)`;
+    }
+
+    // TIMER POMODORO
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById("btn-timer-toggle");
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = "Continuar";
+        btn.className = "px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg transition-colors";
+      } else {
+        btn.textContent = "Pausar";
+        btn.className = "px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg transition-colors";
+        timerInterval = setInterval(() => {
+          timerTimeLeft--;
+          document.getElementById("timer-display").textContent = formatTime(timerTimeLeft);
+          if (timerTimeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            btn.textContent = "Iniciar";
+            alert("⏰ 20 minutos concluídos! Parabéns pela disciplina!");
+            resetTimer();
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerTimeLeft = timerDuration;
+      document.getElementById("timer-display").textContent = formatTime(timerDuration);
+      const btn = document.getElementById("btn-timer-toggle");
+      btn.textContent = "Iniciar";
+      btn.className = "px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold rounded-lg transition-colors";
+    }
+
+    // NAVEGAÇÃO ENTRE ABAS
+    function switchTab(tab) {
+      ['fase1', 'fase2', 'fase3'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`tab-btn-${t}`).className = "pb-3 font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition-colors";
+      });
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tab}`).className = "pb-3 font-semibold text-sky-400 border-b-2 border-sky-400 transition-colors";
+    }
+
+    // EXPORTAR DADOS
+    function exportData() {
+      const data = {
+        checkedTasks,
+        sessionHistory,
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `progresso_estudos_data_science_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+    }
+
+    function resetDataPrompt() {
+      if (confirm("Tem certeza que deseja limpar seus dados salvos neste navegador?")) {
+        localStorage.removeItem("study_checked_tasks");
+        localStorage.removeItem("study_session_history");
+        checkedTasks = {};
+        sessionHistory = [];
+        renderTimeline();
+        renderRecesso();
+        renderHistory();
+        updateSummaryMetrics();
+      }
+    }
+
+    // INIT
+    renderTimeline();
+    renderRecesso();
+    renderHistory();
+    updateSummaryMetrics();
+  </script>
+</body>
+</html>
+

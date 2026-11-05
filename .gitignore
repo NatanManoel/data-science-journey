@@ -1,0 +1,110 @@
+# ==============================================================================
+# .gitignore — MBA Data Science, Machine Learning & IA
+# ==============================================================================
+
+# --- Segurança & Variáveis de Ambiente (CRÍTICO) ---
+.env
+.env.*
+!.env.example
+secrets.json
+credentials.json
+*.pem
+*.key
+*.cert
+
+# --- Documentos Pessoais Sensíveis ---
+*Declaração de Matrícula*.pdf
+*declaracao*.pdf
+*matricula*.pdf
+*Matricula*.pdf
+*Comprovante*.pdf
+*comprovante*.pdf
+
+# --- Python & Bytecode ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Ambientes Virtuais ---
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+.conda/
+
+# --- Jupyter Notebooks & Spyder ---
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+.spyderproject/
+.spyproject/
+.ropeproject/
+
+# --- IDEs & Editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# --- Modelos Treinados & Arquivos Binários Pesados ---
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.hdf5
+*.keras
+*.onnx
+*.pt
+*.pth
+*.ckpt
+
+# --- Arquivos Compactados & Datasets Brutos Pesados ---
+*.zip
+*.tar.gz
+*.rar
+*.7z
+# Caso queira ignorar pastas de datasets pesados no futuro:
+# datasets/raw/
+# data/heavy/
+
+# --- Bancos de Dados Locais Temporários & Logs ---
+*.log
+*.sqlite3-journal
+*.db-wal
+*.db-shm
+# (Nota: database/study_tracker.db pode ser versionado se desejar manter backup das suas métricas)
+
+# --- Sistema Operacional (Windows & Mac) ---
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+

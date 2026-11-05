@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Rotina DS">
+  <title>Rotina & Data Science</title>
+  
+  <!-- FAVICON & ÍCONES DO APP PARA CELULAR -->
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 1rem;
+    }
+    .checkbox-custom:checked {
+      background-color: #10b981;
+      border-color: #10b981;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24 safe-area-inset">
+
+  <!-- TOP BAR MOBILE -->
+  <header class="sticky top-0 z-30 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-2.5">
+    <div class="flex items-center justify-between max-w-lg mx-auto">
+      <div class="flex items-center gap-2.5">
+        <img src="icon.svg" alt="Logo" class="w-9 h-9 rounded-xl shadow-md border border-sky-500/30 object-cover">
+        <div>
+          <div class="text-[10px] font-semibold tracking-wider text-sky-400 uppercase" id="current-day-name">Sexta-feira</div>
+          <div class="text-base font-bold text-white leading-tight" id="current-date-display">06 de Novembro</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="changeDay(-1)" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-sm font-bold active:bg-slate-700">‹</button>
+        <button onclick="goToToday()" class="px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-semibold border border-sky-500/30">Hoje</button>
+        <button onclick="changeDay(1)" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-sm font-bold active:bg-slate-700">›</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-lg mx-auto p-4 space-y-4">
+
+    <!-- RESUMO DO DIA / PROGRESS BAR -->
+    <div class="card p-4 bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-xs font-medium text-slate-400">Progresso dos Pilares Diários</span>
+        <span class="text-xs font-bold text-emerald-400" id="progress-percent">0%</span>
+      </div>
+      <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+        <div id="progress-bar-fill" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <div class="flex justify-between text-[11px] text-slate-400 mt-2.5">
+        <span id="label-treino">🏋️ Treino: Pendente</span>
+        <span id="label-estudo">🧠 Estudo: Pendente</span>
+        <span id="label-trabalho">💼 Trabalho: Ativo</span>
+      </div>
+    </div>
+
+    <!-- 1. BLOCO: TREINO & SAÚDE -->
+    <section class="card p-4 space-y-3 border-l-4 border-l-emerald-500">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏋️</span>
+          <div>
+            <h2 class="text-sm font-bold text-white">Treino & Atividade Física</h2>
+            <div class="text-[11px] text-slate-400">Energia e consistência física</div>
+          </div>
+        </div>
+        <input type="checkbox" id="chk-treino" onchange="togglePillar('treino')" class="checkbox-custom w-6 h-6 rounded-lg border-slate-600 bg-slate-800 text-emerald-500 cursor-pointer">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">Tipo de Treino</label>
+          <input type="text" id="input-treino-tipo" placeholder="Ex: Musculação Peito / Corrida" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">Horário Previsto</label>
+          <input type="time" id="input-treino-hora" value="07:00" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BLOCO: ESTUDO DATA SCIENCE (20 MIN PISO) -->
+    <section class="card p-4 space-y-3 border-l-4 border-l-sky-500">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🧠</span>
+          <div>
+            <h2 class="text-sm font-bold text-white">Data Science — MBA USP</h2>
+            <div class="text-[11px] text-sky-400 font-medium" id="ds-window-badge">🌅 Janela: 08h35 às 08h55</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="toggleEditStudy()" class="text-[11px] text-slate-400 hover:text-sky-300 font-medium bg-slate-800 px-2 py-0.5 rounded border border-slate-700">✏️ Editar</button>
+          <input type="checkbox" id="chk-estudo" onchange="togglePillar('estudo')" class="checkbox-custom w-6 h-6 rounded-lg border-slate-600 bg-slate-800 text-emerald-500 cursor-pointer">
+        </div>
+      </div>
+
+      <!-- SELETOR RÁPIDO DE JANELA (HOMEOFFICE VS PRESENCIAL) -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px]">
+        <span class="text-slate-400 text-[10px]">Horário:</span>
+        <button type="button" onclick="setStudySlot('manha')" id="slot-btn-manha" class="px-2 py-0.5 rounded-full border text-[10px] font-medium bg-sky-500/20 text-sky-300 border-sky-500/40">🌅 Manhã (08h35)</button>
+        <button type="button" onclick="setStudySlot('almoco')" id="slot-btn-almoco" class="px-2 py-0.5 rounded-full border text-[10px] font-medium bg-slate-800 text-slate-400 border-slate-700">🥪 Almoço</button>
+        <button type="button" onclick="setStudySlot('tarde')" id="slot-btn-tarde" class="px-2 py-0.5 rounded-full border text-[10px] font-medium bg-slate-800 text-slate-400 border-slate-700">🌆 Tarde (18h30)</button>
+      </div>
+
+      <!-- TÓPICO DO DIA (VISUALIZAÇÃO / EDIÇÃO) -->
+      <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700/60 text-xs space-y-1.5" id="ds-display-box">
+        <div class="font-bold text-white flex items-center justify-between" id="ds-meta-title">
+          <span>Data Wrangling II</span>
+        </div>
+        <p class="text-slate-300 text-[11px] leading-relaxed" id="ds-meta-desc">
+          Retomar DW II do 35:40 / L262 (~15-20 min) + joins/limpeza.
+        </p>
+        <div class="pt-1 flex items-center justify-between text-[11px]">
+          <a id="ds-ref-link" href="https://wesmckinney.com/book/data-wrangling.html" target="_blank" class="text-sky-400 underline font-medium">
+            📚 Abrir Referência do Dia ↗
+          </a>
+          <span class="text-slate-500" id="ds-extra-desc">+Energia: Avançar código</span>
+        </div>
+      </div>
+
+      <!-- CAIXA DE EDIÇÃO DE ESTUDO (OCULTA POR PADRÃO) -->
+      <div id="ds-edit-box" class="hidden bg-slate-900 p-3 rounded-lg border border-sky-500/40 space-y-2 text-xs">
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">Título da Matéria</label>
+          <input type="text" id="input-custom-ds-title" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">Meta e Detalhes</label>
+          <input type="text" id="input-custom-ds-desc" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white">
+        </div>
+        <div class="flex justify-end gap-2 pt-1">
+          <button onclick="toggleEditStudy()" class="px-3 py-1 bg-slate-800 text-slate-400 rounded text-xs">Cancelar</button>
+          <button onclick="saveCustomStudy()" class="px-3 py-1 bg-sky-600 text-white font-semibold rounded text-xs">Salvar Alteração</button>
+        </div>
+      </div>
+
+      <!-- TIMER INTEGRADO NO CELULAR -->
+      <div class="flex items-center justify-between bg-slate-900 px-3 py-2 rounded-lg border border-slate-700">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400">Timer:</span>
+          <span class="font-mono font-bold text-base text-sky-400" id="timer-text">20:00</span>
+        </div>
+        <div class="flex gap-1.5">
+          <button id="btn-timer" onclick="toggleTimer()" class="px-3 py-1 bg-sky-600 active:bg-sky-500 text-white text-xs font-semibold rounded-md">Iniciar</button>
+          <button onclick="resetTimer()" class="px-2 py-1 bg-slate-800 active:bg-slate-700 text-slate-400 text-xs rounded-md">↺</button>
+        </div>
+      </div>
+
+      <!-- FEYNMAN RÁPIDO -->
+      <div>
+        <label class="text-[10px] text-slate-400 block mb-1">Síntese Feynman (1 frase em palavras simples):</label>
+        <input type="text" id="input-ds-feynman" placeholder="Ex: Entendi como o left join preserva o dataframe base" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500">
+      </div>
+    </section>
+
+    <!-- 3. BLOCO: TRABALHO & PRIORIDADES -->
+    <section class="card p-4 space-y-3 border-l-4 border-l-indigo-500">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">💼</span>
+          <div>
+            <h2 class="text-sm font-bold text-white">Trabalho & Entregas do Dia</h2>
+            <div class="text-[11px] text-slate-400" id="work-mode-label">Regime: Home Office</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- TOGGLE PRESENCIAL VS HOME OFFICE -->
+          <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-700 text-[10px]">
+            <button type="button" onclick="setWorkMode('home')" id="btn-mode-home" class="px-2 py-0.5 rounded-md font-semibold bg-indigo-600 text-white">🏠 Home</button>
+            <button type="button" onclick="setWorkMode('presencial')" id="btn-mode-presencial" class="px-2 py-0.5 rounded-md text-slate-400">🏢 Presencial</button>
+          </div>
+          <input type="checkbox" id="chk-trabalho" onchange="togglePillar('trabalho')" class="checkbox-custom w-6 h-6 rounded-lg border-slate-600 bg-slate-800 text-emerald-500 cursor-pointer">
+        </div>
+      </div>
+
+      <div class="space-y-1.5" id="work-items-list">
+        <input type="text" id="input-work-1" placeholder="• Prioridade 1 do trabalho..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+        <input type="text" id="input-work-2" placeholder="• Prioridade 2 do trabalho..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+      </div>
+    </section>
+
+    <!-- 4. BLOCO: OUTROS COMPROMISSOS -->
+    <section class="card p-4 space-y-3 border-l-4 border-l-amber-500">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📌</span>
+          <h2 class="text-sm font-bold text-white">Outros Compromissos & Lembretes</h2>
+        </div>
+        <button onclick="addOtherItem()" class="text-xs text-amber-400 font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">+ Novo</button>
+      </div>
+
+      <div class="space-y-2" id="other-items-container">
+        <!-- Itens dinâmicos -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM BAR MOBILE -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 py-2 px-6 flex justify-around items-center text-center z-40 max-w-lg mx-auto">
+    <button onclick="saveAll(true)" class="flex flex-col items-center gap-1 text-emerald-400 active:scale-95">
+      <span class="text-lg">💾</span>
+      <span class="text-[10px] font-semibold">Salvar</span>
+    </button>
+    <a href="dashboard_estudos.html" class="flex flex-col items-center gap-1 text-slate-400 active:text-sky-400">
+      <span class="text-lg">📊</span>
+      <span class="text-[10px] font-medium">Dashboard</span>
+    </a>
+    <button onclick="shareOrExport()" class="flex flex-col items-center gap-1 text-slate-400 active:text-amber-400">
+      <span class="text-lg">📤</span>
+      <span class="text-[10px] font-medium">Backup</span>
+    </button>
+  </nav>
+
+  <script>
+    // ROTINA FIXA DE TREINOS POR DIA DA SEMANA
+    const TREINOS_SEMANAIS = {
+      1: "Tarde: Treino Push | Noite: Treino Muay Thai",               // Segunda
+      2: "Tarde: Treino Leg Press | Noite: Aula Pós (MBA)",           // Terça
+      3: "Noite: Treino Muay Thai",                                   // Quarta
+      4: "Manhã: Corrida Leve (30/35 min) | Noite: Treino Muay Thai", // Quinta
+      5: "Manhã: Treino Pull",                                        // Sexta
+      6: "Manhã: Corrida ao ar livre (mais forte)",                   // Sábado
+      0: "Descanso / Recuperação"                                     // Domingo
+    };
+
+    // CRONOGRAMA DE ESTUDOS AJUSTADO (INÍCIO EM 06/11)
+    const CRONOGRAMA_MAP = {
+      "2026-11-06": { title: "Data Wrangling II", desc: "Retomar do 35:40 / L262 (~15-20 min) + anotar onde parou.", extra: "Avançar até próximo bloco", link: "https://wesmckinney.com/book/data-wrangling.html" },
+      "2026-11-07": { title: "Data Wrangling II (Prática)", desc: "Rodar trecho anterior; joins e limpeza (fillna / dropna).", extra: "Exercício prático da aula", link: "https://wesmckinney.com/book/data-cleaning.html" },
+      "2026-11-08": { title: "Revisão Semanal / Folga", desc: "15 min de checagem no app + descanso mental.", extra: "Consolidação de memória", link: "#" },
+      "2026-11-09": { title: "Estatística no Excel", desc: "Resolver 3 a 5 exercícios de estatística básica.", extra: "1 flashcard média vs mediana", link: "https://statquest.org/" },
+      "2026-11-10": { title: "BI e Data Viz I (Aula)", desc: "Assistir aula ao vivo + refazer 1 gráfico no mesmo dia.", extra: "5 linhas fato vs dimensão", link: "https://github.com/Financial-Times/chart-doctor/tree/master/visual-vocabulary" },
+      "2026-11-11": { title: "Fechar DW II + BI I", desc: "Fechar pendências de DW II + recriar gráfico de BI.", extra: "DW III abrir imports", link: "https://pandas.pydata.org/docs/" },
+      "2026-11-12": { title: "DW III (Dataset CVM)", desc: "Carga do dataset CVM + limpeza inicial dos dados.", extra: "Merge com cadastral", link: "https://wesmckinney.com/book/data-aggregation.html" },
+      "2026-11-13": { title: "SVM Churn", desc: "StandardScaler + SVC fit (script cego curto de 20 min).", extra: "GridSearch / ROC", link: "https://www.statlearning.com/" }
+    };
+
+    // DATA ATUAL SELECIONADA (PADRÃO: 06/11/2026)
+    let selectedDate = new Date("2026-11-06T12:00:00");
+
+    function formatDateKey(d) {
+      return d.toISOString().slice(0, 10);
+    }
+
+    function getStorageKey(d) {
+      return "rotina_day_" + formatDateKey(d);
+    }
+
+    function updateHeader() {
+      const dias = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+      const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+      
+      document.getElementById("current-day-name").textContent = dias[selectedDate.getDay()];
+      document.getElementById("current-date-display").textContent = `${String(selectedDate.getDate()).padStart(2, '0')} de ${meses[selectedDate.getMonth()]}`;
+
+      // Atualiza card de estudos
+      const key = formatDateKey(selectedDate);
+      const estudo = CRONOGRAMA_MAP[key] || {
+        title: "Revisão / Estudo Livre (20 min)",
+        desc: "Dedique 20 minutos revisando anotações Feynman ou avançando no backlog.",
+        extra: "Manter constância",
+        link: "https://wesmckinney.com/book/"
+      };
+
+      document.getElementById("ds-meta-title").textContent = estudo.title;
+      document.getElementById("ds-meta-desc").textContent = estudo.desc;
+      document.getElementById("ds-extra-desc").textContent = "+Energia: " + estudo.extra;
+      document.getElementById("ds-ref-link").href = estudo.link;
+
+      loadDayData();
+    }
+
+    function changeDay(delta) {
+      saveAll(false);
+      selectedDate.setDate(selectedDate.getDate() + delta);
+      updateHeader();
+    }
+
+    function goToToday() {
+      saveAll(false);
+      selectedDate = new Date("2026-11-06T12:00:00");
+      updateHeader();
+    }
+
+    // PERSISTÊNCIA & CARREGAMENTO
+    let currentWorkMode = "home";
+    let currentStudySlot = "manha";
+
+    function loadDayData() {
+      const key = getStorageKey(selectedDate);
+      const data = JSON.parse(localStorage.getItem(key) || "{}");
+
+      const isWednesday = (selectedDate.getDay() === 3);
+      const defaultTreino = TREINOS_SEMANAIS[selectedDate.getDay()] || "Treino livre";
+
+      // 1. Treino
+      document.getElementById("chk-treino").checked = !!data.treinoDone;
+      document.getElementById("input-treino-tipo").value = data.treinoTipo !== undefined ? data.treinoTipo : defaultTreino;
+      document.getElementById("input-treino-hora").value = data.treinoHora || (selectedDate.getDay() === 4 || selectedDate.getDay() === 5 || selectedDate.getDay() === 6 ? "06:30" : "17:30");
+
+      // 2. Regime de Trabalho (Home vs Presencial)
+      currentWorkMode = data.workMode || (isWednesday ? "presencial" : "home");
+      applyWorkModeUI(currentWorkMode);
+
+      // 3. Janela de Estudo
+      currentStudySlot = data.studySlot || (currentWorkMode === "presencial" ? "tarde" : "manha");
+      applyStudySlotUI(currentStudySlot);
+
+      // 4. Estudo Customizado (se editado)
+      if (data.customStudyTitle) {
+        document.getElementById("ds-meta-title").textContent = data.customStudyTitle;
+        document.getElementById("input-custom-ds-title").value = data.customStudyTitle;
+      } else {
+        document.getElementById("input-custom-ds-title").value = document.getElementById("ds-meta-title").textContent;
+      }
+      if (data.customStudyDesc) {
+        document.getElementById("ds-meta-desc").textContent = data.customStudyDesc;
+        document.getElementById("input-custom-ds-desc").value = data.customStudyDesc;
+      } else {
+        document.getElementById("input-custom-ds-desc").value = document.getElementById("ds-meta-desc").textContent;
+      }
+
+      document.getElementById("chk-estudo").checked = !!data.estudoDone;
+      document.getElementById("input-ds-feynman").value = data.feynman || "";
+
+      // 5. Trabalho
+      document.getElementById("chk-trabalho").checked = !!data.trabalhoDone;
+      document.getElementById("input-work-1").value = data.work1 || "";
+      document.getElementById("input-work-2").value = data.work2 || "";
+
+      // 6. Outros compromissos
+      const container = document.getElementById("other-items-container");
+      container.innerHTML = "";
+      const others = data.others || [];
+      if (others.length === 0) {
+        container.innerHTML = `<div class="text-[11px] text-slate-500 py-1">Nenhum compromisso extra adicionado.</div>`;
+      } else {
+        others.forEach((item, idx) => {
+          renderOtherItemRow(item.text, item.done, idx);
+        });
+      }
+
+      updateProgressBar();
+    }
+
+    function setWorkMode(mode) {
+      currentWorkMode = mode;
+      applyWorkModeUI(mode);
+      // Se virou presencial e estava na manhã, sugere tarde automaticamente
+      if (mode === "presencial" && currentStudySlot === "manha") {
+        setStudySlot("tarde");
+      } else if (mode === "home" && currentStudySlot === "tarde") {
+        setStudySlot("manha");
+      }
+      saveAll(false);
+    }
+
+    function applyWorkModeUI(mode) {
+      const btnHome = document.getElementById("btn-mode-home");
+      const btnPres = document.getElementById("btn-mode-presencial");
+      const label = document.getElementById("work-mode-label");
+
+      if (mode === "presencial") {
+        btnPres.className = "px-2 py-0.5 rounded-md font-semibold bg-amber-600 text-white";
+        btnHome.className = "px-2 py-0.5 rounded-md text-slate-400";
+        label.textContent = "Regime: 🏢 Presencial (Dia no Escritório)";
+        label.className = "text-[11px] text-amber-400 font-semibold";
+      } else {
+        btnHome.className = "px-2 py-0.5 rounded-md font-semibold bg-indigo-600 text-white";
+        btnPres.className = "px-2 py-0.5 rounded-md text-slate-400";
+        label.textContent = "Regime: 🏠 Home Office (Chega metrô 08h30)";
+        label.className = "text-[11px] text-slate-400";
+      }
+    }
+
+    function setStudySlot(slot) {
+      currentStudySlot = slot;
+      applyStudySlotUI(slot);
+      saveAll(false);
+    }
+
+    function applyStudySlotUI(slot) {
+      const slots = {
+        manha: { badge: "🌅 Janela de Ouro: 08h35 às 08h55", btn: "slot-btn-manha" },
+        almoco: { badge: "🥪 Pausa Almoço: 12h30 às 12h50", btn: "slot-btn-almoco" },
+        tarde: { badge: "🌆 Fim de Tarde: 18h30 às 18h50", btn: "slot-btn-tarde" }
+      };
+
+      ["manha", "almoco", "tarde"].forEach(s => {
+        const btn = document.getElementById(slots[s].btn);
+        if (s === slot) {
+          btn.className = "px-2 py-0.5 rounded-full border text-[10px] font-semibold bg-sky-500/20 text-sky-300 border-sky-500/40";
+        } else {
+          btn.className = "px-2 py-0.5 rounded-full border text-[10px] font-medium bg-slate-800 text-slate-400 border-slate-700";
+        }
+      });
+
+      document.getElementById("ds-window-badge").textContent = slots[slot].badge;
+    }
+
+    function toggleEditStudy() {
+      const editBox = document.getElementById("ds-edit-box");
+      const displayBox = document.getElementById("ds-display-box");
+      editBox.classList.toggle("hidden");
+      displayBox.classList.toggle("hidden");
+    }
+
+    function saveCustomStudy() {
+      const title = document.getElementById("input-custom-ds-title").value.trim();
+      const desc = document.getElementById("input-custom-ds-desc").value.trim();
+      if (title) document.getElementById("ds-meta-title").textContent = title;
+      if (desc) document.getElementById("ds-meta-desc").textContent = desc;
+      toggleEditStudy();
+      saveAll(true);
+    }
+
+    function saveAll(showAlert = true) {
+      const key = getStorageKey(selectedDate);
+      
+      const others = [];
+      document.querySelectorAll(".other-item-row").forEach(row => {
+        const text = row.querySelector("input[type=text]").value;
+        const done = row.querySelector("input[type=checkbox]").checked;
+        if (text.trim()) others.push({ text, done });
+      });
+
+      const dayData = {
+        workMode: currentWorkMode,
+        studySlot: currentStudySlot,
+        customStudyTitle: document.getElementById("input-custom-ds-title").value,
+        customStudyDesc: document.getElementById("input-custom-ds-desc").value,
+        treinoDone: document.getElementById("chk-treino").checked,
+        treinoTipo: document.getElementById("input-treino-tipo").value,
+        treinoHora: document.getElementById("input-treino-hora").value,
+        estudoDone: document.getElementById("chk-estudo").checked,
+        feynman: document.getElementById("input-ds-feynman").value,
+        trabalhoDone: document.getElementById("chk-trabalho").checked,
+        work1: document.getElementById("input-work-1").value,
+        work2: document.getElementById("input-work-2").value,
+        others: others,
+        updatedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(key, JSON.stringify(dayData));
+      updateProgressBar();
+      if (showAlert) {
+        const toast = document.createElement("div");
+        toast.className = "fixed top-14 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-xs font-bold py-1.5 px-4 rounded-full shadow-lg z-50 transition-all";
+        toast.textContent = "✓ Informações salvas com sucesso!";
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 1800);
+      }
+    }
+
+    function togglePillar(pillar) {
+      saveAll(false);
+    }
+
+    function updateProgressBar() {
+      const t = document.getElementById("chk-treino").checked ? 1 : 0;
+      const e = document.getElementById("chk-estudo").checked ? 1 : 0;
+      const w = document.getElementById("chk-trabalho").checked ? 1 : 0;
+
+      const total = 3;
+      const done = t + e + w;
+      const pct = Math.round((done / total) * 100);
+
+      document.getElementById("progress-bar-fill").style.width = pct + "%";
+      document.getElementById("progress-percent").textContent = pct + "%";
+
+      document.getElementById("label-treino").textContent = `🏋️ Treino: ${t ? 'Concluído ✓' : 'Pendente'}`;
+      document.getElementById("label-treino").className = t ? "text-emerald-400 font-bold" : "text-slate-400";
+
+      document.getElementById("label-estudo").textContent = `🧠 Estudo: ${e ? 'Concluído ✓' : 'Pendente'}`;
+      document.getElementById("label-estudo").className = e ? "text-emerald-400 font-bold" : "text-slate-400";
+
+      document.getElementById("label-trabalho").textContent = `💼 Trabalho: ${w ? 'Concluído ✓' : 'Ativo'}`;
+      document.getElementById("label-trabalho").className = w ? "text-emerald-400 font-bold" : "text-slate-400";
+    }
+
+    function addOtherItem() {
+      const container = document.getElementById("other-items-container");
+      if (container.innerText.includes("Nenhum compromisso")) container.innerHTML = "";
+      renderOtherItemRow("", false, Date.now());
+    }
+
+    function renderOtherItemRow(text, done, id) {
+      const container = document.getElementById("other-items-container");
+      const div = document.createElement("div");
+      div.className = "other-item-row flex items-center gap-2";
+      div.innerHTML = `
+        <input type="checkbox" ${done ? 'checked' : ''} onchange="saveAll(false)" class="checkbox-custom w-5 h-5 rounded border-slate-600 bg-slate-800 text-amber-500 cursor-pointer">
+        <input type="text" value="${text}" placeholder="Ex: Consulta médica, pagar boleto..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500">
+        <button onclick="this.parentElement.remove(); saveAll(false);" class="text-slate-500 hover:text-rose-400 px-1 text-xs">✕</button>
+      `;
+      container.appendChild(div);
+    }
+
+    // TIMER 20 MIN
+    let timerSec = 20 * 60;
+    let timerInterval = null;
+
+    function toggleTimer() {
+      const btn = document.getElementById("btn-timer");
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.textContent = "Iniciar";
+        btn.className = "px-3 py-1 bg-sky-600 active:bg-sky-500 text-white text-xs font-semibold rounded-md";
+      } else {
+        btn.textContent = "Pausar";
+        btn.className = "px-3 py-1 bg-amber-600 active:bg-amber-500 text-white text-xs font-semibold rounded-md";
+        timerInterval = setInterval(() => {
+          timerSec--;
+          const m = Math.floor(timerSec / 60);
+          const s = timerSec % 60;
+          document.getElementById("timer-text").textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+          if (timerSec <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById("chk-estudo").checked = true;
+            saveAll(true);
+            alert("⏰ 20 minutos concluídos! Sua meta de hoje foi batida!");
+            resetTimer();
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSec = 20 * 60;
+      document.getElementById("timer-text").textContent = "20:00";
+      const btn = document.getElementById("btn-timer");
+      btn.textContent = "Iniciar";
+      btn.className = "px-3 py-1 bg-sky-600 active:bg-sky-500 text-white text-xs font-semibold rounded-md";
+    }
+
+    function shareOrExport() {
+      const allData = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k.startsWith("rotina_day_")) {
+          allData[k] = JSON.parse(localStorage.getItem(k));
+        }
+      }
+      const blob = new Blob([JSON.stringify(allData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `backup_rotina_${formatDateKey(selectedDate)}.json`;
+      a.click();
+    }
+
+    // REGISTRO DE SERVICE WORKER (FUNCIONAMENTO 100% OFFLINE COM PC DESLIGADO)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(() => console.log('App pronto para funcionar offline e sem computador!'))
+          .catch((err) => console.log('SW offline:', err));
+      });
+    }
+
+    // AUTO-SAVE AO DIGITAR
+    document.addEventListener("input", (e) => {
+      if (e.target.tagName === "INPUT") {
+        saveAll(false);
+      }
+    });
+
+    // START
+    updateHeader();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,233 @@
+MBA Data Science — Planejamento de Estudos & Guia com Referências
+Atualizado: 03/11/2026
+Objetivo: chegar em 19/01/2027 atualizado; em 02/02 pronto para Engenharia de Dados
+e com base quente para as 2 aulas extras de APIs e Integração de LLMs.
+Regra de constância: 20 min/dia útil. Sem maratona de “compensar”.
+
+Base de dados ativa: database/study_tracker.db
+Skill do Antigravity: .agents/skills/study-tracker/SKILL.md
+CLI de Registro: python scripts/study_tracker.py [today|log|stats|history]
+
+================================================================================
+CALENDÁRIO DE AULAS
+================================================================================
+
+Já cursadas (sequência):
+- Fundamentos de Estatística (3)
+- Introdução ao Python (3)
+- Data Wrangling (4)
+- Coleta de Dados: Crawlers e Web Scraping (1)
+- Text Mining, Sentiment Analysis e NLP (3)
+- Pesquisa Operacional e Modelos de Otimização (3)
+- Árvores, Redes e Ensemble Models (4)
+- Deep Learning e IA (4)
+- Desenvolvimento de APIs e Integração Prática LLMs (1 de 3 — já cursada)
+- Support Vector Machines I e II
+- Análise Estatística Espacial (03/11/2026)
+
+Ainda em 2026:
+- 10/11, 17/11, 24/11 — BI e Data Visualization I, II e III
+- 01/12, 08/12 — Social Network Analysis I e II
+- Depois: recesso
+
+2027 (datas já conhecidas):
+- 19/01 e 26/01 — Metodologias Ágeis (tema fácil — uso no trabalho)
+- 02/02 — Engenharia de Dados (1)
+- 03/02–15/02 — férias (só aula em 16/02)
+- 16/02 e 23/02 — Engenharia de Dados (2 e 3)
+
+Aulas soltas (fora da grade; ver quando quiser — encaixe fixo):
+- São 2 aulas de APIs e LLMs, além da de 07/10. Úteis porque ligam Crawlers
+  (HTTP) à Engenharia de Dados (ingestão e serviço).
+- Não competem com terça ao vivo. Cada uma = 1 bloco só, no sábado da semana.
+- Aula solta 1 -> sáb 19/12 (semana dos Crawlers). Se falhar: dom 20/12.
+  Assistir + script.py células [1]–[8] (extração e chunking).
+  [Ref: FastAPI Docs + LangChain intro]
+- Aula solta 2 -> sáb 16/01 (véspera da volta). Se falhar: sáb 07/02, nas férias.
+  Assistir + script.py células [9]–[18] (RAG + FastAPI /health).
+  [Ref: DeepLearning.AI Building Systems with LLMs]
+- Semente antes disso: sáb 14/11, 20 min, só células [1]–[2].
+
+================================================================================
+REGRA DE CONSTÂNCIA (ler quando desanimar)
+================================================================================
+
+1. Todo dia útil: 20 minutos. Acabou o tempo? Para. Conta como vitória.
+2. Se sobrar energia: continua até 45–60 min no MESMO tema.
+3. Perdeu 1 dia: no seguinte faz SÓ os 20 min. Não compensa.
+4. Perdeu 3+ dias: escolhe 1 script, não a pasta inteira.
+5. Nunca recomeça o plano do zero.
+
+Sessão padrão (quando fluir): 10 min objetivo -> 50 código -> 20 métricas -> 10 Feynman.
+
+================================================================================
+FASE 1 — Até o recesso (04/11 à 08/12)
+================================================================================
+
+Foco: aula da terça (BI/SNA) + mínimo de backlog.
+
+Retomar AGORA:
+- Data Wrangling II — continuar do 35:40 / linha 262
+
+Rotina sugerida:
+- Terça: aula viva + 1 prática do material no mesmo dia + 5 linhas de nota
+- Seg/Qua (20–40 min): Data Wrangling II à V
+- Qui (20–40 min): 1 caso SVM ou Árvore (script cego curto)
+- Sex (20–30 min): lista estatística Excel OU Feynman
+- Sáb (opcional 45 min): Text Mining ou PuLP
+
+Meta ao entrar no recesso (08/12):
+[ ] DW II–V tocados
+[ ] SVM >= 2 casos refeitos
+[ ] Espacial 01+02 rodados 1x
+[ ] BI I–III e SNA I–II com anotações
+(Não precisa zerar tudo antes do recesso.)
+
+================================================================================
+CALENDÁRIO DIA A DIA — 06/11 à 17/11 (Ajustado com REFERÊNCIAS EXTERNAS)
+================================================================================
+
+Piso: 20 min. Se sobrar energia: +20–40 no MESMO item. Domingo = só checks.
+
+--- SEMANA 1 — âncora DW II ---
+
+[ ] Sex 06/11 — Abrir DW II; do 35:40 / L262 ~15 min + anotar onde parou
+    +energia: avançar até o próximo bloco lógico
+    * REFERÊNCIA: Wes McKinney - Python for Data Analysis (Cap. 8: Data Wrangling: Join, Combine & Reshape)
+      Link aberto: https://wesmckinney.com/book/data-wrangling.html
+
+[ ] Sáb 07/11 — Continuar DW II: rodar o trecho de ontem
+    +energia: joins/limpeza do exercício da aula
+    * REFERÊNCIA: Wes McKinney (Cap. 7: Data Cleaning and Preparation)
+      Link aberto: https://wesmckinney.com/book/data-cleaning.html
+
+[ ] Dom 08/11 — 15 min: marcar checks no tracker / folga ok
+    Comando: python scripts/study_tracker.py today
+
+[ ] Seg 09/11 — Lista estatística Excel: 3–5 exercícios
+    +energia: +5 exercícios OU 1 flashcard (média vs mediana)
+    * REFERÊNCIA: Livro Fávero & Belfiore (Manual de Análise de Dados p.78-150)
+      + StatQuest (YouTube: What is a P-Value & Normal Distributions)
+
+[ ] Ter 10/11 — BI I — Assistir + 1 gráfico/dashboard no mesmo dia
+    +energia: 5 linhas (dimensão / fato / KPI)
+    * REFERÊNCIA: Livro Storytelling com Dados (Cole Knaflic Cap. 1 e 2)
+      + Financial Times Visual Vocabulary (escolha do gráfico ideal)
+
+--- SEMANA 2 — âncora DW III + BI ---
+
+[ ] Qua 11/11 — Fechar o que falta de DW II (meta: “aula II ok”)
+    +energia: Refazer 1 visual da BI I sem gabarito
+    * REFERÊNCIA: Pandas official docs (pd.DataFrame.merge / pd.concat)
+
+[ ] Qui 12/11 — DW III (CVM): load + limpeza inicial
+    +energia: merge/análise principal
+    * REFERÊNCIA: Wes McKinney (Cap. 10: Data Aggregation and Group Operations)
+
+[ ] Sex 13/11 — SVM Churn: StandardScaler + SVC fit (cego curto)
+    +energia: GridSearch ou CM/ROC
+    * REFERÊNCIA: Aurélien Géron (Hands-On ML Cap. 5) + ISLP (Stanford Cap. 9)
+
+[ ] Sáb 14/11 — OPCIONAL semente APIs (20 min): script.py células [1] e [2]
+    (setup FinOps + Gemini/Chroma). Pasta: Desenvolvimento de APIs.../aula-api-llm
+    +energia: célula [3]–[4] extração do PDF em datasets/
+    * REFERÊNCIA: FastAPI Docs (fastapi.tiangolo.com/tutorial/first-steps/)
+      + DeepLearning.AI (Building Systems with the ChatGPT API)
+
+[ ] Dom 15/11 — 15 min planejamento / folga
+
+[ ] Seg 16/11 — Fechar DW III OU Feynman 10 linhas da BI I
+    +energia: DW IV (Copa) só load
+
+[ ] Ter 17/11 — BI II — Assistir + 1 prática no mesmo dia
+    +energia: comparar com BI I (o que mudou)
+    * REFERÊNCIA: Cole Knaflic (Cap. 3: Clutter é seu Inimigo - Eliminando Ruídos Visuais)
+
+================================================================================
+FASE 2 — Recesso (09/12/2026 à 18/01/2027) — 6 semanas (com REFERÊNCIAS)
+================================================================================
+
+Uma âncora por semana (reduz decisão = mais constância).
+Todo dia: 20 min no tema da semana. Domingo: 15 min só planejar a semana.
+
+R1 — 09–15/12 — Data Wrangling completo
+  Entrega: WDI, CVM, Copa, Streaming rodando
+  [ ] DW I  [ ] DW II  [ ] DW III  [ ] DW IV  [ ] Streaming
+  * REFERÊNCIA: Wes McKinney Cap. 7, 8 e 10 + Kaggle Pandas Tutorials.
+
+R2 — 16–22/12 — Crawlers + Text Mining + aula solta 1 de APIs
+  Entrega: 1 scrape + sentiment aulas 1–2.
+  [ ] Crawlers Colab  [ ] TM aula 1  [ ] sentiment-2
+  [ ] Sáb 19/12 — aula solta 1 + script.py [1]–[8]
+  * REFERÊNCIA: Hugging Face NLP Course (huggingface.co/learn/nlp-course)
+    + BeautifulSoup / Scrapy Docs.
+
+R3 — 23–29/12 — LEVE (feriado)
+  Entrega: lista Excel estatística + 3 flashcards; ok reduzir carga
+  [ ] exercícios estatística  [ ] 3 flashcards decisão (quando usar X)
+  * REFERÊNCIA: Fávero & Belfiore p.78-487 + Bruce & Bruce (Estatística Prática).
+
+R4 — 30/12–05/01 — PO (PuLP) + Árvores
+  Entrega: 2 PuLP + 1 ensemble
+  [ ] PuLP 1  [ ] PuLP 2  [ ] Árvore classif.  [ ] Ensemble
+  * REFERÊNCIA: PuLP Docs (coin-or.github.io/pulp/) + Géron Cap. 6 e 7 (Decision Trees & Random Forests)
+    + StatQuest: Random Forests & XGBoost.
+
+R5 — 06–12/01 — Deep Learning + SVM + Espacial
+  Entrega: 1 NN + 2 SVM + Moran/LISA
+  [ ] primeira NN  [ ] SVM caso A  [ ] SVM caso B  [ ] Espacial 02
+  * REFERÊNCIA: 3Blue1Brown (Neural Networks) + Géron Cap. 10
+    + Geographic Data Science with Python (geographicdata.science/book).
+
+R6 — 13–18/01 — aula solta 2 de APIs (RAG + FastAPI)
+  A parte [1]–[8] já foi no dia 19/12. Esta semana fecha o pipeline.
+  [ ] Sáb 16/01 — aula solta 2 + script.py [9]–[13] RAG e anti-alucinação
+  [ ] no mesmo sábado ou no dia seguinte: [14]–[18] e /health no ar
+  [ ] 5 linhas do que isso tem a ver com Engenharia de Dados
+  * REFERÊNCIA: FastAPI Docs + DeepLearning.AI (LangChain & Vector Databases).
+
+================================================================================
+FASE 3 — Volta 2027 & Preparação Engenharia de Dados
+================================================================================
+
+19/01 e 26/01 — Metodologias Ágeis
+  Assistir bem. Estudo técnico = só manutenção 20 min numa célula do script.py (RAG).
+
+Semana 27/01–01/02 — Prep Engenharia de Dados
+  Revisar: ProjetoPython, Data Wrangling, Crawlers, /health da FastAPI, Git, SQL avançado.
+  * REFERÊNCIAS TOP TIER:
+    - Livro: Martin Kleppmann (Designing Data-Intensive Applications)
+    - Bootcamp Gratuito: Data Engineering Zoomcamp (github.com/DataTalksClub/data-engineering-zoomcamp)
+    - Prática SQL: LeetCode Top 50 SQL Study Plan (Window Functions & CTEs)
+
+02/02 — Engenharia de Dados (1)
+  No mesmo dia: anotar + rodar o que der do material.
+
+03/02–15/02 — Férias
+  Manter 20 min/dia: replay da aula 02/02 + exercícios do módulo.
+
+16/02 e 23/02 — Engenharia de Dados (2 e 3)
+  Replay ativo no dia da aula.
+
+================================================================================
+BACKLOG GERAL POR DISCIPLINA
+================================================================================
+
+ProjetoPython ..................... [ ]
+Fundamentos Estatisticas .......... [ ] (Ref: Fávero & Belfiore p.78-487 / StatQuest)
+Data Wrangling .................... [ ] (Ref: Wes McKinney Cap. 7, 8 e 10)
+Crawlers .......................... [ ] (Ref: Scrapy & BS4 Docs)
+Text Mining ....................... [ ] (Ref: Hugging Face NLP Course)
+Pesquisa Organizacional (PO) ...... [ ] (Ref: PuLP Coin-OR Docs)
+Arvores de Decisão ................ [ ] (Ref: Géron Cap. 6 e 7 / StatQuest)
+Deep Learning e IA ................ [ ] (Ref: 3Blue1Brown / Géron Cap. 10)
+APIs + LLMs ....................... [ ] (Ref: FastAPI / DeepLearning.AI)
+SVM ............................... [ ] (Ref: Géron Cap. 5 / ISLP Cap. 9)
+Estatistica Espacial .............. [ ] (Ref: Geographic Data Science with Python)
+Business Case (PDFs) .............. [ ]
+Gestao da Mudança ................. [ ]
+BI e Data Visualization ........... [ ] (Ref: Cole Knaflic Storytelling com Dados)
+Social Network Analysis ........... [ ] (Ref: Barabási Network Science / NetworkX)
+
+Dúvidas do curso: monitordsa@mbauspesalq.com
+Livro estatística: Índice p.30 — assuntos p.78 até 487

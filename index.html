@@ -244,16 +244,42 @@
       0: "Descanso / Recuperação"                                     // Domingo
     };
 
-    // CRONOGRAMA DE ESTUDOS AJUSTADO (INÍCIO EM 06/11)
+    // CRONOGRAMA DE ESTUDOS AUDITADO — FASE 1 COMPLETA (06/11 A 09/12) + PROVAS EAD ÀS QUARTAS
     const CRONOGRAMA_MAP = {
-      "2026-11-06": { title: "Data Wrangling II", desc: "Retomar do 35:40 / L262 (~15-20 min) + anotar onde parou.", extra: "Avançar até próximo bloco", link: "https://wesmckinney.com/book/data-wrangling.html" },
-      "2026-11-07": { title: "Data Wrangling II (Prática)", desc: "Rodar trecho anterior; joins e limpeza (fillna / dropna).", extra: "Exercício prático da aula", link: "https://wesmckinney.com/book/data-cleaning.html" },
-      "2026-11-08": { title: "Revisão Semanal / Folga", desc: "15 min de checagem no app + descanso mental.", extra: "Consolidação de memória", link: "#" },
-      "2026-11-09": { title: "Estatística no Excel", desc: "Resolver 3 a 5 exercícios de estatística básica.", extra: "1 flashcard média vs mediana", link: "https://statquest.org/" },
-      "2026-11-10": { title: "BI e Data Viz I (Aula)", desc: "Assistir aula ao vivo + refazer 1 gráfico no mesmo dia.", extra: "5 linhas fato vs dimensão", link: "https://github.com/Financial-Times/chart-doctor/tree/master/visual-vocabulary" },
-      "2026-11-11": { title: "Fechar DW II + BI I", desc: "Fechar pendências de DW II + recriar gráfico de BI.", extra: "DW III abrir imports", link: "https://pandas.pydata.org/docs/" },
-      "2026-11-12": { title: "DW III (Dataset CVM)", desc: "Carga do dataset CVM + limpeza inicial dos dados.", extra: "Merge com cadastral", link: "https://wesmckinney.com/book/data-aggregation.html" },
-      "2026-11-13": { title: "SVM Churn", desc: "StandardScaler + SVC fit (script cego curto de 20 min).", extra: "GridSearch / ROC", link: "https://www.statlearning.com/" }
+      "2026-11-06": { title: "Data Wrangling II — (1.1) Script", desc: "Retomar do 35:40 / linha 262 (~20 min) no (1.1) Script Data Wrangling.py.", extra: "Avançar próximo bloco", link: "https://wesmckinney.com/book/data-wrangling.html" },
+      "2026-11-07": { title: "Data Wrangling II — (2.2) WDI World Bank", desc: "Praticar merge/join e limpeza (isna/fillna) + rodar (2.2) Script WDI World Bank.py.", extra: "Explorar indicadores WDI", link: "https://wesmckinney.com/book/data-cleaning.html" },
+      "2026-11-08": { title: "Revisão Semanal (15 min)", desc: "Checar progresso da semana no app + descanso mental.", extra: "Descanso", link: "#" },
+      "2026-11-09": { title: "Fundamentos de Estatística (Excel)", desc: "Resolver 3 exercícios da lista em Excel (Testes Z/t ou Qui-quadrado).", extra: "+1 flashcard p-valor / IC", link: "https://www.youtube.com/playlist?list=PL5TJqBvpXQv5PnJbHB8v27bh-dc39U04o" },
+      "2026-11-10": { title: "AULA AO VIVO: BI e Data Viz I (19h)", desc: "Assistir aula ao vivo + reproduzir 1 gráfico no Power BI.", extra: "5 linhas: Fato vs Dimensão", link: "https://www.youtube.com/playlist?list=PLw62cBQ5j9VE93Tl27232c1sCA372446a" },
+      "2026-11-11": { title: "📝 PROVA EaD: BI I (Dia Presencial)", desc: "Sem código no PC! Usar 15-20 min no almoço para fazer a Prova EaD da aula de terça.", extra: "Revisar Feynman no celular", link: "https://mbauspesalq.com/" },
+      "2026-11-12": { title: "Data Wrangling III — (3.1) Script CVM", desc: "Carga do dataset CVM, inspeção de tipos e filtros iniciais.", extra: "Groupby + merge cadastral", link: "https://wesmckinney.com/book/data-aggregation.html" },
+      "2026-11-13": { title: "SVM Caso 1 — SVM - Admissão.py", desc: "Rodar StandardScaler + SVC.fit() e analisar matriz de confusão.", extra: "Comparar kernel linear vs rbf", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-11-14": { title: "Semente APIs & LLMs — script.py", desc: "Rodar células [1] e [2] (FinOps + conexão Gemini) em aula-api-llm/script.py.", extra: "Inspecionar células [3]-[4] PDF", link: "https://fastapi.tiangolo.com/pt/tutorial/" },
+      "2026-11-15": { title: "Revisão Semanal (15 min)", desc: "Planejamento da Semana 3 + descanso.", extra: "Descanso", link: "#" },
+      "2026-11-16": { title: "Data Wrangling IV — (4.1) Jogos Copa", desc: "Carga e transformação de variáveis em (4.1) Script Jogos Copa.py.", extra: "Criar métrica por seleção", link: "https://pandas.pydata.org/docs/" },
+      "2026-11-17": { title: "AULA AO VIVO: BI e Data Viz II (19h)", desc: "Assistir aula ao vivo + montar 1 filtro/medida DAX no Power BI.", extra: "Comparar evolução com BI I", link: "https://www.youtube.com/playlist?list=PLw62cBQ5j9VE93Tl27232c1sCA372446a" },
+      "2026-11-18": { title: "📝 PROVA EaD: BI II (Dia Presencial)", desc: "Sem código no PC! Realizar Prova EaD de BI II no almoço/transporte.", extra: "Ler resumo Feynman", link: "https://mbauspesalq.com/" },
+      "2026-11-19": { title: "Data Wrangling V — (5.1) Streaming (Pt 1)", desc: "Carga e limpeza inicial em (5.1) Script Streaming.py.", extra: "Tratar valores ausentes", link: "https://wesmckinney.com/book/data-cleaning.html" },
+      "2026-11-20": { title: "Data Wrangling V — (5.4) Streaming (Fim!)", desc: "Finalizar (5.4) Script Streaming.ipynb e declarar Data Wrangling 100% concluído!", extra: "Checar Prova EaD de DW", link: "https://wesmckinney.com/book/" },
+      "2026-11-21": { title: "SVM Caso 2 — SVM - Churn.py", desc: "Rodar pipeline de Churn + avaliar Curva ROC e AUC.", extra: "Testar GridSearchCV (C, gamma)", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-11-22": { title: "Revisão Semanal (15 min)", desc: "Checar estatísticas da semana + descanso.", extra: "Descanso", link: "#" },
+      "2026-11-23": { title: "Fundamentos de Estatística (Pearson & F)", desc: "Resolver 3 exercícios práticos (Correlação de Pearson e Teste F).", extra: "Feynman: p-valor vs alfa", link: "https://www.youtube.com/playlist?list=PL5TJqBvpXQv5PnJbHB8v27bh-dc39U04o" },
+      "2026-11-24": { title: "AULA AO VIVO: BI e Data Viz III (19h)", desc: "Assistir aula ao vivo (fechamento de BI e Data Visualization).", extra: "Salvar template Power BI", link: "https://www.youtube.com/playlist?list=PLw62cBQ5j9VE93Tl27232c1sCA372446a" },
+      "2026-11-25": { title: "📝 PROVA EaD: BI III (Dia Presencial)", desc: "Sem código no PC! Realizar Prova EaD de BI III no portal.", extra: "Revisar conceito de margem SVM", link: "https://mbauspesalq.com/" },
+      "2026-11-26": { title: "SVM Caso 3 — SVM - Segmentação.py", desc: "Rodar script de segmentação e analisar fronteira de decisão.", extra: "Comparar treino vs teste", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-11-27": { title: "SVM Caso 4 — SVM - Vendas.py (Fim SVM!)", desc: "Rodar SVM - Vendas.py e declarar módulo SVM 100% concluído!", extra: "Feynman: Linear vs Poly vs RBF", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-11-28": { title: "APIs & LLMs — Chunking & ChromaDB", desc: "Rodar células [5] a [7] de aula-api-llm/script.py (RAG base).", extra: "Testar query semântica", link: "https://fastapi.tiangolo.com/pt/tutorial/" },
+      "2026-11-29": { title: "Revisão Semanal (15 min)", desc: "Planejamento da semana de SNA + descanso.", extra: "Descanso", link: "#" },
+      "2026-11-30": { title: "Análise Estatística Espacial (Revisão)", desc: "Revisar conceitos de Shapefile, Raster e Índice de Moran (LISA).", extra: "Mapear 5 termos da Ementa", link: "https://geopandas.org/" },
+      "2026-12-01": { title: "AULA AO VIVO: Social Network Analysis I", desc: "Assistir aula ao vivo SNA I (grafos, nós, arestas, centralidade).", extra: "Testar grafo no NetworkX", link: "https://networkx.org/" },
+      "2026-12-02": { title: "📝 PROVA EaD: SNA I (Dia Presencial)", desc: "Sem código no PC! Realizar Prova EaD de SNA I no almoço.", extra: "Flashcard: Grau vs Betweenness", link: "https://mbauspesalq.com/" },
+      "2026-12-03": { title: "Árvores 1 — Aula_1_Árvores_de_Decisão.py", desc: "Rodar script de classificação por árvore (Gini, Entropia e Poda).", extra: "Inspecionar feature_importances_", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-12-04": { title: "Árvores 1 — Aula_1_Árvores_de_Regressão.py", desc: "Rodar script de regressão por árvore e avaliar MSE / R².", extra: "Comparar profundidade max_depth", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-12-05": { title: "Revisão SNA I + Estatística", desc: "Revisar métricas de grafos + 3 exercícios de estatística.", extra: "Auditar Provas EaD feitas", link: "https://networkx.org/" },
+      "2026-12-06": { title: "Revisão Semanal (15 min)", desc: "Preparar última semana da Fase 1.", extra: "Descanso", link: "#" },
+      "2026-12-07": { title: "Ensemble — Aula_2_Métodos_de_Ensemble.py", desc: "Rodar parte 1 do script de Ensemble (Bagging e Random Forest).", extra: "Feynman: Bagging vs Boosting", link: "https://www.youtube.com/playlist?list=PLfP6i5T0-DkI15171X14t202X52f6110U" },
+      "2026-12-08": { title: "AULA AO VIVO: Social Network Analysis II", desc: "Última aula ao vivo do ano! Fechamento de SNA II.", extra: "Síntese final da Fase 1", link: "https://networkx.org/" },
+      "2026-12-09": { title: "📝 PROVA EaD: SNA II (Dia Presencial)", desc: "Fechar a Prova EaD de SNA II e iniciar Fase 2 (Recesso Técnico)!", extra: "Fase 1 100% concluída!", link: "https://mbauspesalq.com/" }
     };
 
     // DATA ATUAL SELECIONADA (PADRÃO: 06/11/2026)

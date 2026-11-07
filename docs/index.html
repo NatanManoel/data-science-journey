@@ -184,10 +184,11 @@
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <!-- TOGGLE PRESENCIAL VS HOME OFFICE -->
+          <!-- TOGGLE HOME OFFICE / PRESENCIAL / FOLGA -->
           <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-700 text-[10px]">
             <button type="button" onclick="setWorkMode('home')" id="btn-mode-home" class="px-2 py-0.5 rounded-md font-semibold bg-indigo-600 text-white">🏠 Home</button>
-            <button type="button" onclick="setWorkMode('presencial')" id="btn-mode-presencial" class="px-2 py-0.5 rounded-md text-slate-400">🏢 Presencial</button>
+            <button type="button" onclick="setWorkMode('presencial')" id="btn-mode-presencial" class="px-2 py-0.5 rounded-md text-slate-400">🏢 Pres.</button>
+            <button type="button" onclick="setWorkMode('folga')" id="btn-mode-folga" class="px-2 py-0.5 rounded-md text-slate-400">🏖️ Folga</button>
           </div>
           <input type="checkbox" id="chk-trabalho" onchange="togglePillar('trabalho')" class="checkbox-custom w-6 h-6 rounded-lg border-slate-600 bg-slate-800 text-emerald-500 cursor-pointer">
         </div>
@@ -329,28 +330,43 @@
       updateHeader();
     }
 
+    // FERIADOS NACIONAIS / SP NO PERÍODO DO PLANO
+    const FERIADOS_MAP = {
+      "2026-11-15": "Feriado: Proclamação da República",
+      "2026-11-20": "Feriado: Dia da Consciência Negra",
+      "2026-12-24": "Véspera de Natal",
+      "2026-12-25": "Feriado: Natal",
+      "2026-12-31": "Véspera de Ano Novo",
+      "2027-01-01": "Feriado: Confraternização Universal",
+      "2027-01-25": "Feriado: Aniversário de São Paulo"
+    };
+
     // PERSISTÊNCIA & CARREGAMENTO
     let currentWorkMode = "home";
     let currentStudySlot = "manha";
 
     function loadDayData() {
       const key = getStorageKey(selectedDate);
+      const dateIso = formatDateKey(selectedDate);
       const data = JSON.parse(localStorage.getItem(key) || "{}");
 
-      const isWednesday = (selectedDate.getDay() === 3);
-      const defaultTreino = TREINOS_SEMANAIS[selectedDate.getDay()] || "Treino livre";
+      const dayOfWeek = selectedDate.getDay();
+      const isWednesday = (dayOfWeek === 3);
+      const isWeekendOrHoliday = (dayOfWeek === 0 || dayOfWeek === 6 || !!FERIADOS_MAP[dateIso]);
+      const defaultTreino = TREINOS_SEMANAIS[dayOfWeek] || "Treino livre";
 
       // 1. Treino
       document.getElementById("chk-treino").checked = !!data.treinoDone;
       document.getElementById("input-treino-tipo").value = data.treinoTipo !== undefined ? data.treinoTipo : defaultTreino;
-      document.getElementById("input-treino-hora").value = data.treinoHora || (selectedDate.getDay() === 4 || selectedDate.getDay() === 5 || selectedDate.getDay() === 6 ? "06:30" : "17:30");
+      document.getElementById("input-treino-hora").value = data.treinoHora || (dayOfWeek === 4 || dayOfWeek === 5 || dayOfWeek === 6 ? "06:30" : "17:30");
 
-      // 2. Regime de Trabalho (Home vs Presencial)
-      currentWorkMode = data.workMode || (isWednesday ? "presencial" : "home");
+      // 2. Regime de Trabalho (Home vs Presencial vs Folga Fim de Semana/Feriado)
+      const defaultMode = isWeekendOrHoliday ? "folga" : (isWednesday ? "presencial" : "home");
+      currentWorkMode = data.workMode || defaultMode;
       applyWorkModeUI(currentWorkMode);
 
       // 3. Janela de Estudo
-      currentStudySlot = data.studySlot || (currentWorkMode === "presencial" ? "tarde" : "manha");
+      currentStudySlot = data.studySlot || (currentWorkMode === "presencial" ? "almoco" : "manha");
       applyStudySlotUI(currentStudySlot);
 
       // 4. Estudo Customizado (se editado)
@@ -370,9 +386,9 @@
       document.getElementById("chk-estudo").checked = !!data.estudoDone;
       document.getElementById("input-ds-feynman").value = data.feynman || "";
 
-      // 5. Trabalho
-      document.getElementById("chk-trabalho").checked = !!data.trabalhoDone;
-      document.getElementById("input-work-1").value = data.work1 || "";
+      // 5. Trabalho (em dias de folga já vem marcado como concluído/isento por padrão)
+      document.getElementById("chk-trabalho").checked = data.trabalhoDone !== undefined ? !!data.trabalhoDone : (currentWorkMode === "folga");
+      document.getElementById("input-work-1").value = data.work1 !== undefined ? data.work1 : (currentWorkMode === "folga" ? (FERIADOS_MAP[dateIso] || "Fim de Semana — Sem expediente de trabalho") : "");
       document.getElementById("input-work-2").value = data.work2 || "";
 
       // 6. Outros compromissos
@@ -393,30 +409,49 @@
     function setWorkMode(mode) {
       currentWorkMode = mode;
       applyWorkModeUI(mode);
-      // Se virou presencial e estava na manhã, sugere tarde automaticamente
       if (mode === "presencial" && currentStudySlot === "manha") {
-        setStudySlot("tarde");
-      } else if (mode === "home" && currentStudySlot === "tarde") {
+        setStudySlot("almoco");
+      } else if ((mode === "home" || mode === "folga") && currentStudySlot !== "manha") {
         setStudySlot("manha");
       }
+      if (mode === "folga") {
+        document.getElementById("chk-trabalho").checked = true;
+      }
+      applyStudySlotUI(currentStudySlot);
       saveAll(false);
     }
 
     function applyWorkModeUI(mode) {
       const btnHome = document.getElementById("btn-mode-home");
       const btnPres = document.getElementById("btn-mode-presencial");
+      const btnFolga = document.getElementById("btn-mode-folga");
       const label = document.getElementById("work-mode-label");
+      const dayOfWeek = selectedDate.getDay();
+      const dateIso = formatDateKey(selectedDate);
+      const isWifeHomeOffice = (dayOfWeek === 2 || dayOfWeek === 4); // Terças e Quintas
+
+      btnHome.className = "px-2 py-0.5 rounded-md text-slate-400";
+      btnPres.className = "px-2 py-0.5 rounded-md text-slate-400";
+      btnFolga.className = "px-2 py-0.5 rounded-md text-slate-400";
 
       if (mode === "presencial") {
         btnPres.className = "px-2 py-0.5 rounded-md font-semibold bg-amber-600 text-white";
-        btnHome.className = "px-2 py-0.5 rounded-md text-slate-400";
-        label.textContent = "Regime: 🏢 Presencial (Dia no Escritório)";
+        label.textContent = "Regime: 🏢 Presencial (Leva ao metrô + Escritório)";
         label.className = "text-[11px] text-amber-400 font-semibold";
+      } else if (mode === "folga") {
+        btnFolga.className = "px-2 py-0.5 rounded-md font-semibold bg-emerald-600 text-white";
+        const motivo = FERIADOS_MAP[dateIso] || "Fim de Semana";
+        label.textContent = `Regime: 🏖️ Folga (${motivo} — Sem Expediente)`;
+        label.className = "text-[11px] text-emerald-400 font-semibold";
       } else {
         btnHome.className = "px-2 py-0.5 rounded-md font-semibold bg-indigo-600 text-white";
-        btnPres.className = "px-2 py-0.5 rounded-md text-slate-400";
-        label.textContent = "Regime: 🏠 Home Office (Chega metrô 08h30)";
-        label.className = "text-[11px] text-slate-400";
+        if (isWifeHomeOffice) {
+          label.textContent = "Regime: 🏠 Home Office (Esposa em HO — Sem ida ao metrô!)";
+          label.className = "text-[11px] text-sky-400 font-medium";
+        } else {
+          label.textContent = "Regime: 🏠 Home Office (Leva esposa ao metrô — chega 08h30)";
+          label.className = "text-[11px] text-slate-400";
+        }
       }
     }
 
@@ -427,9 +462,20 @@
     }
 
     function applyStudySlotUI(slot) {
+      const dayOfWeek = selectedDate.getDay();
+      const isWifeHomeOffice = (dayOfWeek === 2 || dayOfWeek === 4);
+      let manhaBadge = "🌅 Janela de Ouro: 08h35 às 08h55 (Pós-Metrô)";
+      if (currentWorkMode === "folga") {
+        manhaBadge = "☀️ Manhã Livre: Horário Flexível (Dia de Folga!)";
+      } else if (isWifeHomeOffice) {
+        manhaBadge = dayOfWeek === 4
+          ? "🌅 Super Janela: 08h15 às 08h55 (Sem Metrô! + Pós-Corrida)"
+          : "🌅 Manhã Livre (Sem Metrô!) + 🌙 Aula Pós 19h00";
+      }
+
       const slots = {
-        manha: { badge: "🌅 Janela de Ouro: 08h35 às 08h55", btn: "slot-btn-manha" },
-        almoco: { badge: "🥪 Pausa Almoço: 12h30 às 12h50", btn: "slot-btn-almoco" },
+        manha: { badge: manhaBadge, btn: "slot-btn-manha" },
+        almoco: { badge: "🥪 Almoço/Transporte: 12h30 (Prova EaD / Leitura)", btn: "slot-btn-almoco" },
         tarde: { badge: "🌆 Fim de Tarde: 18h30 às 18h50", btn: "slot-btn-tarde" }
       };
 
@@ -521,8 +567,10 @@
       document.getElementById("label-estudo").textContent = `🧠 Estudo: ${e ? 'Concluído ✓' : 'Pendente'}`;
       document.getElementById("label-estudo").className = e ? "text-emerald-400 font-bold" : "text-slate-400";
 
-      document.getElementById("label-trabalho").textContent = `💼 Trabalho: ${w ? 'Concluído ✓' : 'Ativo'}`;
-      document.getElementById("label-trabalho").className = w ? "text-emerald-400 font-bold" : "text-slate-400";
+      document.getElementById("label-trabalho").textContent = currentWorkMode === "folga"
+        ? "🏖️ Trabalho: Folga ✓"
+        : `💼 Trabalho: ${w ? 'Concluído ✓' : 'Ativo'}`;
+      document.getElementById("label-trabalho").className = (w || currentWorkMode === "folga") ? "text-emerald-400 font-bold" : "text-slate-400";
     }
 
     function addOtherItem() {

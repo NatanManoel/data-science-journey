@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rotina-estudos-v3';
+const CACHE_NAME = 'rotina-estudos-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
